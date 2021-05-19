@@ -23,18 +23,18 @@ const menu = () => {
 
 			case 2 : 
 			manager.question(`What do you want to do today? \n`, function (tasksInput){
+				
 				tasks.push(tasksInput);
-
-				console.log(`I added "${tasksInput}" \n\n Your tasks : ${tasks}\n`);
+				console.log(`You added "${tasksInput}" \n\n Your tasks : ${tasks}\n`);
 				
 
-				let data = JSON.stringify(tasksInput);
+				let data = JSON.stringify(tasks);
 				fs.writeFile('store.json', data, (err) => {
 					if(err)throw err;
-					console.log("Data written to file");
+					
 				});
 
-				// menu();
+				menu();
 			})
 
 			break;
@@ -47,7 +47,12 @@ const menu = () => {
 					if(tasks[i] == remove){
 						tasks.splice(i, 1);
 						console.log(`You successfully removed "${remove}"\n`);
-						saveData(store.json, tasks);
+
+						let data = JSON.stringify(tasks);	
+						fs.writeFile('store.json', data, (err) => {
+							if(err)throw err;
+							
+						});
 					}
 				}
 
@@ -66,7 +71,12 @@ const menu = () => {
 						let checked = tasks[i] + " [CHECK]";
 						// console.log(checked);
 						tasks.splice(i, 1, checked);
-						saveData(store.json, tasks);
+						
+						let data = JSON.stringify(tasks);
+						fs.writeFile('store.json', data, (err) => {
+							if(err)throw err;
+							
+						});
 					}
 				}
 
